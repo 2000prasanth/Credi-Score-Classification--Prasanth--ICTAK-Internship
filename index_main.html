@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CREDIT SCORE CLASSIFICATION</title>
+</head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 60%;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border: 10px solid #ccc;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  margin-top: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+form input {
+  width: calc(100% - 430px); /* Reduce the width as needed */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 5px solid #cccccc;
+  border-radius: 30px;
+  padding-left: 200px;
+}
+
+form button {
+  display: block;
+  width: 20%;
+  padding: 30px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 300px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #555;
+}
+
+</style>
+<body>
+  <h1>CREDIT SCORE CLASSIFICATION <br><br><br>NB: Only enter numeric values & don't leave any field blank<br></h1>
+  <form action="{{ url_for('predict') }}" method="POST">
+
+    <label for="Age">Age</label>
+    <input type="number" name="Age" required><br><br>
+    <label for="Annual_Income">Annual_Income</label>
+    <input type="number" name="Annual_Income" required><br><br>
+    <label for="Monthly_Inhand_Salary">Monthly Inhand_Salary</label>
+    <input type="number" name="Monthly_Inhand_Salary" required><br><br>
+    <label for="Num_Bank_Accounts">Number if Bank Accounts</label>
+    <input type="number" name="Num_Bank_Accounts" required><br><br>
+    <label for="Num_Credit_Card">Number of Credit Cards</label>
+    <input type="number" name="Num_Credit_Card" required><br><br>
+    <label for="Interest_Rate">Interest_Rate</label>
+    <input type="number" name="Interest_Rate" required><br><br>       
+    <label for="Num_of_Loan">Number of Loans taken</label>
+    <input type="number" name="Num_of_Loan" required><br><br>
+    <label for="Delay_from_due_date">Delay from due date</label>      
+    <input type="number" name="Delay_from_due_date" required><br><br> 
+    <label for="Num_of_Delayed_Payment">Number of Delayed Payments</label>
+    <input type="number" name="Num_of_Delayed_Payment" required><br><br>
+    <label for="Changed_Credit_Limit">Changed Credit Limit</label>    
+    <input type="number" name="Changed_Credit_Limit" required><br><br>
+    <label for="Num_Credit_Inquiries">Number of Credit Inquiries</label>    
+    <input type="number" name="Num_Credit_Inquiries" required><br><br>
+    <label for="Outstanding_Debt">Outstanding Debt</label>
+    <input type="number" name="Outstanding_Debt" required><br><br>    
+    <label for="Credit_Utilization_Ratio">Credit Utilization Ratio</label>
+    <input type="number" name="Credit_Utilization_Ratio" required><br><br>
+    <label for="Credit_History_Age">Credit History Age</label>        
+    <input type="number" name="Credit_History_Age" required><br><br>  
+    <label for="Total_EMI_per_month">Total EMI per_month</label>      
+    <input type="number" name="Total_EMI_per_month" required><br><br> 
+    <label for="Amount_invested_monthly">Amount invested monthly</label>
+    <input type="number" name="Amount_invested_monthly" required><br><br>
+    <label for="Monthly_Balance">Monthly Balance</label>
+    <input type="number" name="Monthly_Balance" required><br><br>     
+    <label for="Occupation_Accountant">Occupation: Accountant. [IMP] the below 15 columns are one-hot encoded values give input as 1 for the corresponding column and 0 for all others</label>  
+    <input type="number" name="Occupation_Accountant" required><br><br>
+    <label for="Occupation_Architect">Occupation: Architect</label>    
+    <input type="number" name="Occupation_Architect" required><br><br>
+    <label for="Occupation_Developer">Occupation: Developer</label>    
+    <input type="number" name="Occupation_Developer" required><br><br>
+    <label for="Occupation_Doctor">Occupation: Doctor</label>
+    <input type="number" name="Occupation_Doctor" required><br><br>   
+    <label for="Occupation_Engineer">Occupation: Engineer</label>      
+    <input type="number" name="Occupation_Engineer" required><br><br> 
+    <label for="Occupation_Entrepreneur">Occupation: Entrepreneur</label>
+    <input type="number" name="Occupation_Entrepreneur" required><br><br>
+    <label for="Occupation_Journalist">Occupation: Journalist</label>  
+    <input type="number" name="Occupation_Journalist" required><br><br>
+    <label for="Occupation_Lawyer">Occupation: Lawyer</label>
+    <input type="number" name="Occupation_Lawyer" required><br><br>   
+    <label for="Occupation_Manager">Occupation: Manager</label>        
+    <input type="number" name="Occupation_Manager" required><br><br>  
+    <label for="Occupation_Mechanic">Occupation: Mechanic</label>      
+    <input type="number" name="Occupation_Mechanic" required><br><br> 
+    <label for="Occupation_Media_Manager">Occupation: Media_Manager</label>
+    <input type="number" name="Occupation_Media_Manager" required><br><br>
+    <label for="Occupation_Musician">Occupation: Musician</label>      
+    <input type="number" name="Occupation_Musician" required><br><br> 
+    <label for="Occupation_Scientist">Occupation: Scientist</label>    
+    <input type="number" name="Occupation_Scientist" required><br><br>
+    <label for="Occupation_Teacher">Occupation: Teacher</label>        
+    <input type="number" name="Occupation_Teacher" required><br><br>  
+    <label for="Occupation_Writer">Occupation: Writer</label>
+    <input type="number" name="Occupation_Writer" required><br><br>   
+    <label for="Payment_Behaviour_High_spent_Large_value_payments">Payment_Behaviour_High_spent_Large_value_payments. [IMP] the below 6 columns are one-hot encoded values give input as 1 for the corresponding column and 0 for all others</label>
+    <input type="number" name="Payment_Behaviour_High_spent_Large_value_payments" required><br><br>
+    <label for="Payment_Behaviour_High_spent_Medium_value_payments">Payment_Behaviour_High_spent_Medium_value_payments</label>
+    <input type="number" name="Payment_Behaviour_High_spent_Medium_value_payments" required><br><br>
+    <label for="Payment_Behaviour_High_spent_Small_value_payments">Payment_Behaviour_High_spent_Small_value_payments</label>
+    <input type="number" name="Payment_Behaviour_High_spent_Small_value_payments" required><br><br>
+    <label for="Payment_Behaviour_Low_spent_Large_value_payments">Payment_Behaviour_Low_spent_Large_value_payments</label>
+    <input type="number" name="Payment_Behaviour_Low_spent_Large_value_payments" required><br><br>
+    <label for="Payment_Behaviour_Low_spent_Medium_value_payments">Payment_Behaviour_Low_spent_Medium_value_payments</label>
+    <input type="number" name="Payment_Behaviour_Low_spent_Medium_value_payments" required><br><br>
+    <label for="Payment_Behaviour_Low_spent_Small_value_payments">Payment_Behaviour_Low_spent_Small_value_payments</label>
+    <input type="number" name="Payment_Behaviour_Low_spent_Small_value_payments" required><br><br>
+    <label for="Type_of_Loan_encoded">Type of Loan encoded</label>    
+    <input type="number" name="Type_of_Loan_encoded" required><br><br>
+    <label for="Credit_Mix_encoded">Credit Mix [encoded] {'Good': 0, 'Poor': 1, 'Standard': 2}</label>        
+    <input type="number" name="Credit_Mix_encoded" required><br><br>  
+    <label for="Payment_of_Min_Amount_encoded">Payment of Minimum Amount [encoded] {'Good': 0, 'Poor': 1, 'Standard': 2}</label>
+    <input type="number" name="Payment_of_Min_Amount_encoded" required><br><br>
+    <label for="Quarter_1">Quarter 1. [IMP] the below 3 columns are one-hot encoded values give input as 1 for the corresponding column and 0 for all others, please give quarter 4 as quarter 3</label>
+    <input type="number" name="Quarter_1" required><br><br>
+    <label for="Quarter_2">Quarter 2</label>
+    <input type="number" name="Quarter_2" required><br><br>
+    <label for="Quarter_3">Quarter 3</label>
+    <input type="number" name="Quarter_3" required><br><br>
+    
+    
+    <button type="submit">Predict Credit Score</button>
+  </form>
+</body>
+</html>
